@@ -15,6 +15,7 @@
   <main data-theme="dark">
     <header class="flex align-center justify-between">
       <h1>Jogo da Velha</h1>
+      <p>Vez de <strong>X</strong></p>
     </header>
     <div id="jogadores">
         <div id="jogadorAtual" class="X"></div>
@@ -22,18 +23,11 @@
     <div class="div3col">
       <section id="dadosJogadores">
         <div>
-          <button>Iniciar</button>
-          <button>Reiniciar</button>
-        </div>
-        <div>
-          <p>Jogador 1: </p>
-          <p>Nome do jogador</p>
-          <p>Pontos: X</p>
+          <p>Jogador X: 40 pontos</p>
           <br>
-          <p>Jogador 2: </p>
-          <p>Nome do jogador</p>
-          <p>Pontos: X</p>        
+          <p>Jogador O: 40 pontos</p>  
         </div>
+
       </section>
       <section class="corpoJogo">
         <table id="tabelaJogo">
@@ -54,12 +48,17 @@
             </tr>
         </table>
       </section>
+      <section id="botoes">
+        <div>
+          <button class="buttonAcoes">Alterar Inicio</button>
+          <button class="buttonAcoes">Reiniciar</button>
+          <div id="botao_escuro">
+            <button id="themeSwitcher">Switch Theme Dark/Light</button>
+          </div>
+        </div>
+      </section>
 
 
-    </div>
-
-    <div>
-        <button id="themeSwitcher">Switch Theme Dark/Light</button>
     </div>
   </main>
 </body>
