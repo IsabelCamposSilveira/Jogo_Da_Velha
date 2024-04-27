@@ -1,0 +1,97 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root {
+    --bg-color: #212529;
+    --border-color: #666;
+    --font-color: #f1f5f9;
+    --primary-color: #4dff91;
+    --error-color: #ff0043;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: "Ubuntu", sans-serif;
+  }
+
+  h1{
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .ganhou{
+    color: red;
+    font-weight: bold;
+    background-color: #c9c9c9;
+    position: relative; 
+  }
+
+  .div3col{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Divide em 3 colunas com largura igual */
+    gap: 10px; /* Adiciona espaçamento entre as colunas */
+  }
+    #tabelaJogo{
+        margin: auto;
+        position: relative; 
+    }
+
+    .opcao {
+        width: 5em;
+        height: 5em;
+        font-size: 2em;
+
+    }
+
+    /*Dados jogador*/
+    #dadosJogadores{
+      left: 40px;
+      position: relative;
+      top: 20%;
+    }
+
+    /*Abaixo CSS para as linhas da vitória*/
+    .ganhou::after{
+      content: ""; /* Criando um elemento pseudo ::after */
+      position: absolute; /* Posicionamento absoluto em relação ao elemento pai */
+      background-color: black; /* Cor da linha */
+    }
+    .ganhouHorizontal::after {
+      bottom: 50%; /* Posicionando no meio vertical do elemento pai */
+      left: 0; /* Alinhando à esquerda */
+      width: 100%; /* Largura igual à largura do elemento pai */
+      height: 2px; /* Altura da linha */
+    }
+    .ganhouVertical::after {
+      top: 0; /* Posicionando no topo do elemento pai */
+      left: 50%; /* Posicionando no meio horizontal do elemento pai */
+      transform: translateX(-50%); /* Corrigindo a posição para centralizar */
+      width: 2px; /* Largura da linha */
+      height: 100%; /* Altura igual à altura do elemento pai */
+      }
+      .ganhouDiagonal1::after {
+        content: ""; /* Criando um elemento pseudo ::after */
+        position: absolute; /* Posicionamento absoluto em relação ao elemento pai */
+        background-color: black; /* Cor da linha */
+        top: 49.5%; /* Posicionando no topo do elemento pai */
+        left: -92px; /* Posicionando no meio horizontal do elemento pai */
+        width: 138%; /* Largura igual à largura do elemento pai */
+        height: 2px; /* Altura da linha */
+        background-color: black; /* Cor da linha */
+        transform: translateY(-50%) rotate(45deg); /* Rotaciona a linha para criar uma diagonal */
+    }
+    .ganhouDiagonal2::after {
+      content: ""; /* Criando um elemento pseudo ::after */
+      position: absolute; /* Posicionamento absoluto em relação ao elemento pai */
+      background-color: black; /* Cor da linha */
+      top: 49.5%; /* Posicionando no topo do elemento pai */
+      left: -92px; /* Posicionando no meio horizontal do elemento pai */
+      width: 138%; /* Largura igual à largura do elemento pai */
+      height: 2px; /* Altura da linha */
+      background-color: black; /* Cor da linha */
+      transform: translateY(-50%) rotate(-45deg); /* Rotaciona a linha para criar uma diagonal */
+  }
