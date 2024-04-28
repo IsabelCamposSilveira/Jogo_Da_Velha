@@ -1,40 +1,27 @@
-
+// Variáveis
 var pontuacaoX = 0;
 var pontuacaoO = 0;
 var iniciou = false;
-const JogadorAtual = document.getElementById('jogadorAtual');
-const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
+var JogadorAtual = "X";
+var MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual;
 
+// Marcar cada jogada realizada
 function marcarJogada(elemento){
     const button = elemento.currentTarget;
 
-    if(button.textContent === ''){
-        if(JogadorAtual.classList.contains("X")){
+    if(button.textContent === ''){ // Se não existir jogava no local irá marcar a jogada
+        if(JogadorAtual == "X"){
             button.textContent = "X";       
         } else{
             button.textContent = "O";
         }
-        regraJogo();
-    }else{
-        
-    }
-
-}
-
-function alteraJogador() {
-
-    if(JogadorAtual.classList.contains("X")){
-        JogadorAtual.classList.remove("X")
-        JogadorAtual.classList.add("O")
-        const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
-    } else {
-        JogadorAtual.classList.remove("O")
-        JogadorAtual.classList.add("X")
-        const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
+        regraJogo(); // Confirma nas regras se ganhou
     }
 }
 
+// Regras do jogo
 function regraJogo() {
+    // const para cada opção de jogada
     const button1r1d = document.getElementById('1r1d');
     const button1r2d = document.getElementById('1r2d');
     const button1r3d = document.getElementById('1r3d');
@@ -44,7 +31,7 @@ function regraJogo() {
     const button3r1d = document.getElementById('3r1d');
     const button3r2d = document.getElementById('3r2d');
     const button3r3d = document.getElementById('3r3d');
-
+    // Confirmando cada opção de vitória
     if(button1r1d.textContent === button1r2d.textContent && button1r1d.textContent === button1r3d.textContent && button1r1d.textContent != ''){
         ganhou(button1r1d, button1r2d, button1r3d, 'ganhouHorizontal');
     } else if(button2r1d.textContent === button2r2d.textContent && button2r1d.textContent === button2r3d.textContent && button2r1d.textContent != ''){
@@ -62,26 +49,36 @@ function regraJogo() {
     } else if(button1r3d.textContent === button2r2d.textContent && button1r3d.textContent === button3r1d.textContent && button1r3d.textContent != ''){
         ganhou(button1r3d, button2r2d, button3r1d, 'ganhouDiagonal2');
     } else{
-        alteraJogador();
-        iniciou = true;
+        alteraJogador(); // Se ninguém ganhou irá alterar o próximo jogador
+        iniciou = true; // Marca o jogo como iniciado
     }
 }
 
+function alteraJogador() {
+    if(JogadorAtual == "X"){
+        JogadorAtual = "O";
+    } else {
+        JogadorAtual = "X"
+    }
+    MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual;
+}
+
+// Se alguém ganhou monta a estilização da vitória
 function ganhou(btn1, btn2, btn3, linha) {
+    btn1.classList.add('ganhou');
+    btn2.classList.add('ganhou');
+    btn3.classList.add('ganhou');
+    // Adiciona as classes para a linha da vitória
     if(linha !== "ganhouDiagonal1" && linha !== "ganhouDiagonal2"){
-        btn1.classList.add('ganhou', linha);
-        btn2.classList.add('ganhou', linha);
-        btn3.classList.add('ganhou', linha);
+        btn1.classList.add(linha);
+        btn2.classList.add(linha);
+        btn3.classList.add(linha);
     } else{
-        btn1.classList.add('ganhou');
-        btn2.classList.add('ganhou');
-        btn3.classList.add('ganhou');
-        const table = document.getElementById('tabelaJogo');
-        table.classList.add(linha);
+        const table = document.getElementById('tabelaJogo').classList.add(linha);
     }
 
     // Soma os pontos
-    if(document.getElementById('jogadorAtual').classList.contains("X")){
+    if(JogadorAtual == "X"){
         pontuacaoX ++;
         document.getElementById("pontuacaoX").textContent = pontuacaoX.toString();
     } else{
@@ -92,7 +89,7 @@ function ganhou(btn1, btn2, btn3, linha) {
     // Limpa o jogo para iniciar novamente
         // Limpa o jogo para iniciar novamente
         setTimeout(function() {
-            var cofirmGanhar = confirm("Jogador " + JogadorAtual.classList + " ganhou. \nParabéns!");
+            var cofirmGanhar = confirm("Jogador " + JogadorAtual + " ganhou. \nParabéns!");
             if(cofirmGanhar == true){
                 var limparJogo = document.querySelectorAll(".opcao");
                 limparJogo.forEach(function(elemento) {
@@ -118,14 +115,13 @@ function ganhou(btn1, btn2, btn3, linha) {
 
 // Botão Alterar inicio
 document.getElementById("AlteraInicio").addEventListener('click', AlteraInicio);
-
 function AlteraInicio() {
     if(iniciou == false){
         alteraJogador();
     }
 }
 
-// Reinicia
+// Botão Reinicia
 document.getElementById("Reinicia").addEventListener('click', Reinicia);
 function Reinicia(){
     location.reload();

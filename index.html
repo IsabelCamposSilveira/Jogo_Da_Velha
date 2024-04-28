@@ -4,22 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
   <title>Jogo da Velha</title>
   <link rel="stylesheet" href="style.css">
   <script src="./index.js" defer></script>
 </head>
+
 <body>
-  <main data-theme="dark">
-    <header class="flex align-center justify-between">
+  <main>
+    <header>
       <h1>Jogo da Velha</h1>
       <p>Vez de <strong id="MostrarJogadorAtual"></strong></p>
     </header>
-    <div id="jogadores">
-        <div id="jogadorAtual" class="X"></div>
-    </div>
+
     <div class="div3col">
       <section id="dadosJogadores">
         <div>
@@ -27,8 +23,8 @@
           <br>
           <p>Jogador O: <span id="pontuacaoO">0</span> pontos</p>  
         </div>
-
       </section>
+
       <section class="corpoJogo">
         <table id="tabelaJogo">
             <tr class="linhaJogo">
@@ -48,13 +44,11 @@
             </tr>
         </table>
       </section>
+
       <section id="botoes">
         <div>
           <button class="buttonAcoes" id="AlteraInicio">Alterar Inicio</button>
           <button class="buttonAcoes" id="Reinicia">Reiniciar</button>
-          <div id="botao_escuro">
-            <button id="themeSwitcher">Switch Theme Dark/Light</button>
-          </div>
         </div>
       </section>
 
