@@ -1,12 +1,12 @@
-window.addEventListener('load', main());
 
-function main(){
-
-}
+var pontuacaoX = 0;
+var pontuacaoO = 0;
+var iniciou = false;
+const JogadorAtual = document.getElementById('jogadorAtual');
+const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
 
 function marcarJogada(elemento){
     const button = elemento.currentTarget;
-    const JogadorAtual = document.getElementById('jogadorAtual');
 
     if(button.textContent === ''){
         if(JogadorAtual.classList.contains("X")){
@@ -14,22 +14,23 @@ function marcarJogada(elemento){
         } else{
             button.textContent = "O";
         }
-        regraJogo()
-        alteraJogador(JogadorAtual)
+        regraJogo();
     }else{
         
     }
 
 }
 
-function alteraJogador(JogadorAtual) {
+function alteraJogador() {
 
     if(JogadorAtual.classList.contains("X")){
         JogadorAtual.classList.remove("X")
         JogadorAtual.classList.add("O")
+        const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
     } else {
         JogadorAtual.classList.remove("O")
         JogadorAtual.classList.add("X")
+        const MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual.classList;
     }
 }
 
@@ -60,6 +61,9 @@ function regraJogo() {
         ganhou(button1r1d, button2r2d, button3r3d, 'ganhouDiagonal1');
     } else if(button1r3d.textContent === button2r2d.textContent && button1r3d.textContent === button3r1d.textContent && button1r3d.textContent != ''){
         ganhou(button1r3d, button2r2d, button3r1d, 'ganhouDiagonal2');
+    } else{
+        alteraJogador();
+        iniciou = true;
     }
 }
 
@@ -76,4 +80,53 @@ function ganhou(btn1, btn2, btn3, linha) {
         table.classList.add(linha);
     }
 
+    // Soma os pontos
+    if(document.getElementById('jogadorAtual').classList.contains("X")){
+        pontuacaoX ++;
+        document.getElementById("pontuacaoX").textContent = pontuacaoX.toString();
+    } else{
+        pontuacaoO ++;
+        document.getElementById("pontuacaoO").textContent = pontuacaoO.toString();        
+    }
+
+    // Limpa o jogo para iniciar novamente
+        // Limpa o jogo para iniciar novamente
+        setTimeout(function() {
+            var cofirmGanhar = confirm("Jogador " + JogadorAtual.classList + " ganhou. \nParabéns!");
+            if(cofirmGanhar == true){
+                var limparJogo = document.querySelectorAll(".opcao");
+                limparJogo.forEach(function(elemento) {
+                    elemento.classList.remove("X");
+
+                    elemento.classList.remove(linha);
+                    document.getElementById('tabelaJogo').classList.remove(linha);
+                    elemento.classList.remove("O");
+                    elemento.classList.remove("ganhou");
+                    elemento.textContent = "";
+                    iniciou = false;
+                    alteraJogador();
+                });
+            } else{
+                Reinicia();
+            }
+        }, 100); // Delay de 100 milissegundos
+
+
+
+}
+
+
+// Botão Alterar inicio
+document.getElementById("AlteraInicio").addEventListener('click', AlteraInicio);
+
+function AlteraInicio() {
+    if(iniciou == false){
+        alteraJogador();
+    }
+}
+
+// Reinicia
+document.getElementById("Reinicia").addEventListener('click', Reinicia);
+function Reinicia(){
+    location.reload();
 }
