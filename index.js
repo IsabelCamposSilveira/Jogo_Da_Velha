@@ -1,7 +1,7 @@
 // Variáveis
 var pontuacaoX = 0;
 var pontuacaoO = 0;
-var iniciou = false;
+var iniciou = 0;
 var JogadorAtual = "X";
 var MostrarJogadorAtual = document.getElementById("MostrarJogadorAtual").textContent = JogadorAtual;
 
@@ -31,6 +31,7 @@ function regraJogo() {
     const button3r1d = document.getElementById('3r1d');
     const button3r2d = document.getElementById('3r2d');
     const button3r3d = document.getElementById('3r3d');
+    const buttons = document.querySelectorAll('.opcao');
     // Confirmando cada opção de vitória
     if(button1r1d.textContent === button1r2d.textContent && button1r1d.textContent === button1r3d.textContent && button1r1d.textContent != ''){
         ganhou(button1r1d, button1r2d, button1r3d, 'ganhouHorizontal');
@@ -48,9 +49,12 @@ function regraJogo() {
         ganhou(button1r1d, button2r2d, button3r3d, 'ganhouDiagonal1');
     } else if(button1r3d.textContent === button2r2d.textContent && button1r3d.textContent === button3r1d.textContent && button1r3d.textContent != ''){
         ganhou(button1r3d, button2r2d, button3r1d, 'ganhouDiagonal2');
-    } else{
+    } else if(iniciou == 8){
+        empate();
+    } 
+    else{
         alteraJogador(); // Se ninguém ganhou irá alterar o próximo jogador
-        iniciou = true; // Marca o jogo como iniciado
+        iniciou ++; // Marca o jogo como iniciado
     }
 }
 
@@ -91,7 +95,7 @@ function ganhou(btn1, btn2, btn3, linha) {
         setTimeout(function() {
             var cofirmGanhar = confirm("Jogador " + JogadorAtual + " ganhou. \nParabéns!");
             if(cofirmGanhar == true){
-                var limparJogo = document.querySelectorAll(".opcao");
+                var limparJogo = document.querySelectorAll('.opcao');
                 limparJogo.forEach(function(elemento) {
                     elemento.classList.remove("X");
 
@@ -100,7 +104,7 @@ function ganhou(btn1, btn2, btn3, linha) {
                     elemento.classList.remove("O");
                     elemento.classList.remove("ganhou");
                     elemento.textContent = "";
-                    iniciou = false;
+                    iniciou = 0;
                     alteraJogador();
                 });
             } else{
@@ -112,11 +116,32 @@ function ganhou(btn1, btn2, btn3, linha) {
 
 }
 
+// Empate
+function empate() {
+
+    setTimeout(function(){
+        var confirmEmpate = confirm("Empatou! \nClique em OK para tentar novamente.");
+        var button = document.querySelectorAll('.opcao');
+        if(confirmEmpate == true){
+            button.forEach(function(elemento) {
+                elemento.classList.remove("X");
+                elemento.classList.remove("O");
+                elemento.textContent = "";
+                iniciou = 0;
+                alteraJogador();
+            });
+        } else{
+            Reinicia();
+        }
+    }, 100);
+
+}
+
 
 // Botão Alterar inicio
 document.getElementById("AlteraInicio").addEventListener('click', AlteraInicio);
 function AlteraInicio() {
-    if(iniciou == false){
+    if(iniciou == 0){
         alteraJogador();
     }
 }
